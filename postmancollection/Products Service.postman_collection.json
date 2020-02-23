@@ -1,0 +1,619 @@
+{
+	"info": {
+		"_postman_id": "3c6343b3-2292-4e3b-bd3f-48dd80729141",
+		"name": "Products Service",
+		"description": "Products Service provides API for Products management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "products",
+			"item": [
+				{
+					"name": "Create New Product",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"kaos band beatles\",\n    \"series\": \"hitam\",\n    \"categories\": [\n        22,\n        25\n    ],\n    \"prices\": [\n        {\n            \"min_quantity\": 1,\n            \"price\": 20000\n        },\n        {\n            \"min_quantity\": 5,\n            \"price\": 19000\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products"
+							]
+						},
+						"description": "Add New Product"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/products/list?page=1&per_page=5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								"list"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "per_page",
+									"value": "5"
+								},
+								{
+									"key": "keyword",
+									"value": "queen",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Get Product List"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product Detail",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/products/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "9"
+								}
+							]
+						},
+						"description": "Get Product Detail"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product by ID",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"string\",\n  \"series\": \"string\",\n  \"catogories\": [\n    0\n  ]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/products/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "22"
+								}
+							]
+						},
+						"description": "Update Product by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product by ID",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "http:///products/:id",
+							"host": [
+								"http:"
+							],
+							"port": "",
+							"path": [
+								"",
+								"",
+								"products",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "22"
+								}
+							]
+						},
+						"description": "delete Product Data by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Post Compare Product List",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"products_id\": [\n    6,7\n  ]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/products/compare",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								"compare"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Folder for products"
+		},
+		{
+			"name": "category",
+			"item": [
+				{
+					"name": "Create New Category",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"string\",\n  \"category_parent_id\": 22\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/category",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"category"
+							]
+						},
+						"description": "Add New Category"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Category List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/category/list?page=1&per_page=5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"category",
+								"list"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "per_page",
+									"value": "5"
+								},
+								{
+									"key": "name",
+									"value": "{{name}}",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Get Category List"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Category Detail",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/category/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"category",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "34"
+								}
+							]
+						},
+						"description": "Get Category Detail"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Category by ID",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"string\",\n  \"category_parent_id\": 0\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/category/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"category",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6"
+								}
+							]
+						},
+						"description": "Update Category by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Category by ID",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/category/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"category",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{id}}"
+								}
+							]
+						},
+						"description": "delete Category Data by ID"
+					},
+					"response": []
+				}
+			],
+			"description": "Folder for category"
+		},
+		{
+			"name": "price",
+			"item": [
+				{
+					"name": "Create New Price",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"min_quantity\": 0,\n  \"price\": 0,\n  \"product_id\": 0\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/price",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"price"
+							]
+						},
+						"description": "Add New Price"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Price by ID",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"min_quantity\": 0,\n  \"price\": 0\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/price/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"price",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "4"
+								}
+							]
+						},
+						"description": "Update Price by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Price by ID",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/price/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"price",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "4"
+								}
+							]
+						},
+						"description": "delete Price Data by ID"
+					},
+					"response": []
+				}
+			],
+			"description": "Folder for price"
+		},
+		{
+			"name": "order",
+			"item": [
+				{
+					"name": "Create New Order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n  {\n    \"quantity\": 10,\n    \"product_id\": 11\n  },\n  {\n    \"quantity\": 3,\n    \"product_id\": 9\n  },\n  {\n    \"quantity\": 6,\n    \"product_id\": 8\n  }\n]"
+						},
+						"url": {
+							"raw": "http://localhost:8080/order",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"order"
+							]
+						},
+						"description": "Add New Order"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Order Detail",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/order/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"order",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "4"
+								}
+							]
+						},
+						"description": "Get Order Detail"
+					},
+					"response": []
+				}
+			],
+			"description": "Folder for order"
+		}
+	]
+}

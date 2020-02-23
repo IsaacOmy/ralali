@@ -1,0 +1,789 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Products Service
+  description: Products Service provides API for Products management
+
+externalDocs:
+  description: Products Service Docs
+  url: http://localhost:8080
+
+paths:
+  /products:
+    post:
+      tags:
+        - product
+      summary: Create New Product
+      description: Add New Product
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              name: 
+                type: string
+              series:
+                type: string
+              categories:
+                type: array
+                description: categories id
+                items:
+                  type: integer
+              prices:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    min_quantity:
+                      type: integer
+                    price:
+                      type: number
+                      format: double
+
+      responses:
+        200:
+          description: Insert New Product
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+        400:
+          description: Bad Request / Validation exception
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+  
+  /products/list:
+    get:
+      tags: 
+        - product
+      summary: Get Product List
+      description: Get Product List
+      produces:
+        - application/json
+      parameters:
+        - name: page
+          in: query
+          description: start record for limitation
+          type: integer
+        - name: per_page
+          in: query
+          description: row length for limitation
+          type: integer
+        - name: keyword
+          in: query
+          description: product name
+          type: string
+      responses:
+        200:
+          description: get product list
+          schema:
+            type: object
+            properties:
+              total_items:
+                type: number
+              items:
+                type: array
+                items:
+                  $ref: "#/definitions/Product"
+        400:
+          description: Bad Request / Validation exception
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorMessage'    
+
+  /products/{id}:
+    get:
+      tags:
+        - product
+      summary: Get Product Detail
+      description: Get Product Detail
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: product id
+          type: integer
+          required: true
+      responses:
+        200:
+          description: Sends Product data
+          schema:
+            $ref: '#/definitions/Product'
+        400:
+          description: Bad Request / Validation exception
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        422:
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+
+    put:
+      tags:
+        - product
+      summary: Update Product by ID
+      description: Update Product by ID
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          type: integer
+          required: true
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              name: 
+                type: string
+              series:
+                type: string
+              catogories:
+                type: array
+                description: categories id
+                items:
+                  type: integer
+      responses:
+        200:
+          description: Updates Product data
+          schema:
+            $ref: '#/definitions/Product'
+        400:
+          description: Bad Request / Validation exception
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        422:
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+
+    delete:
+      tags:
+        - product
+      summary: Delete Product by ID
+      description: delete Product Data by ID
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: product id
+          type: integer
+          required: true
+      responses:
+        200:
+          description: Sends Product data
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+        400:
+          description: Bad Request / Validation exception
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        422:
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+ 
+  /products/compare:
+    post:
+      tags: 
+        - product
+      summary: Get Compare Product List
+      description: Get Compare Product List
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              products_id: 
+                type: array
+                items:
+                  type: integer
+      responses:
+        200:
+          description: get product list
+          schema:
+            type: object
+            properties:
+              total_items:
+                type: integer
+              items:
+                type: array
+                items:
+                  $ref: "#/definitions/Product"
+        400:
+          description: Bad Request / Validation exception
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+
+  /category:
+    post:
+      tags:
+        - category
+      summary: Create New Category
+      description: Add New Category
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              name: 
+                type: string
+              category_parent_id:
+                type: integer
+      responses:
+        200:
+          description: Insert New Product
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+        400:
+          description: Bad Request / Validation exception
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+
+  /category/list:
+    get:
+      tags: 
+        - category
+      summary: Get Category List
+      description: Get Category List
+      produces:
+        - application/json
+      parameters:
+        - name: page
+          in: query
+          description: start record for limitation
+          type: integer
+        - name: per_page
+          in: query
+          description: row length for limitation
+          type: integer
+        - name: name
+          in: query
+          description: category name
+          type: string
+      responses:
+        200:
+          description: get category list
+          schema:
+            type: object
+            properties:
+              total_items:
+                type: number
+              items:
+                type: array
+                items:
+                  $ref: "#/definitions/Category"
+        400:
+          description: Bad Request / Validation exception
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+
+  /category/{id}:
+    get:
+      tags:
+        - category
+      summary: Get Category Detail
+      description: Get Category Detail
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: category id
+          type: integer
+          required: true
+      responses:
+        200:
+          description: Sends Category data
+          schema:
+            $ref: '#/definitions/Category'
+        400:
+          description: Bad Request / Validation exception
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        422:
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+
+    put:
+      tags:
+        - category
+      summary: Update Category by ID
+      description: Update Category by ID
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          type: integer
+          required: true
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              name: 
+                type: string
+              category_parent_id:
+                type: integer
+
+      responses:
+        200:
+          description: Updates Category data
+          schema:
+            $ref: '#/definitions/Category'
+        400:
+          description: Bad Request / Validation exception
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        422:
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+
+    delete:
+      tags:
+        - category
+      summary: Delete Category by ID
+      description: delete Category Data by ID
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: Category id
+          type: integer
+          required: true
+      responses:
+        200:
+          description: Sends Category data
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+        400:
+          description: Bad Request / Validation exception
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        422:
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+
+  /price:
+    post:
+      tags:
+        - price
+      summary: Create New Price
+      description: Add New Price
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              min_quantity: 
+                type: integer
+              price:
+                type: number
+                format: double
+              product_id:
+                type: integer
+      responses:
+        200:
+          description: Insert New Price
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+        400:
+          description: Bad Request / Validation exception
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+
+  /price/{id}:
+    put:
+      tags:
+        - price
+      summary: Update Price by ID
+      description: Update Price by ID
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          type: integer
+          required: true
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              min_quantity: 
+                type: integer
+              price:
+                type: number
+                format: double
+
+      responses:
+        200:
+          description: Updates Price data
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+        400:
+          description: Bad Request / Validation exception
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        422:
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+
+    delete:
+      tags:
+        - price
+      summary: Delete Price by ID
+      description: delete Price Data by ID
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: Price id
+          type: integer
+          required: true
+      responses:
+        200:
+          description: Sends Price data
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+        400:
+          description: Bad Request / Validation exception
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        422:
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+
+  /order:
+    post:
+      tags:
+        - order
+      summary: Create New Order
+      description: Add New Order
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                quantity:
+                  type: integer
+                product_id:
+                  type: integer
+      responses:
+        200:
+          description: Insert New Order
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              order_id:
+                  type: integer
+        400:
+          description: Bad Request / Validation exception
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+
+  /order/{id}:
+    get:
+      tags:
+        - order
+      summary: Get Order Detail
+      description: Get Order Detail
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: Order id
+          type: integer
+          required: true
+      responses:
+        200:
+          description: Sends Order data
+          schema:
+            $ref: '#/definitions/Order'
+        400:
+          description: Bad Request / Validation exception
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        422:
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+
+definitions:
+  ErrorMessage:
+    type: object
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+
+  Category:
+    type: object
+    properties:
+      id:
+        type: integer
+        x-go-custom-tag: 'gorm:"primary_key"'
+      name:
+        type: string
+      status:
+        type: integer
+      category_parent_id:
+        type: integer
+        x-go-custom-tag: 'gorm:"ForeignKey:CategoryID"'
+      category_parent:
+        $ref: '#/definitions/Category'
+  
+  Price:
+    type: object
+    properties:
+      id:
+        type: integer
+        x-go-custom-tag: 'gorm:"primary_key"'
+      min_quantity:
+        type: integer
+      price:
+        type: number
+        format: double
+      status:
+        type: integer
+      product_id:
+        type: integer   
+
+  Product:
+    type: object
+    properties:
+      id:
+        type: integer
+        x-go-custom-tag: 'gorm:"primary_key"'
+      name:
+        type: string
+      series:
+        type: string
+      status:
+        type: integer
+      categories:
+        type: array
+        items:
+          $ref: '#/definitions/Category'
+        x-go-custom-tag: 'gorm:"many2many:product_has_category;"'
+      prices:
+        type: array
+        items:
+          $ref: '#/definitions/Price'
+
+  ItemOrder:
+    type: object
+    properties:
+      id:
+        type: integer
+        x-go-custom-tag: 'gorm:"primary_key"'
+      quantity:
+        type: integer
+      price:
+        type: number
+        format: double
+      order_id:
+        type: integer
+      product_id:
+        type: integer
+      product:
+        $ref: '#/definitions/Product'
+
+  Order:
+    type: object
+    properties:
+      id:
+        type: integer
+        x-go-custom-tag: 'gorm:"primary_key"'
+      created_date:
+        type: string
+      item_orders:
+        type: array
+        items:
+          $ref: '#/definitions/ItemOrder'
+
+  ProductHasCategory:
+    type: object
+    properties:
+      product_id:
+        type: integer
+      category_id:
+        type: integer
